@@ -4,7 +4,7 @@ import datetime
 import requests
 
 OUTPUT_DIR="/var/www/comics"
-INDEX_FILE=f"{OUTPUT_DIR}/index.html"
+OUTPUT_FILE=f"{OUTPUT_DIR}/index.html"
 
 ###
 ### DATES 'N SHIT
