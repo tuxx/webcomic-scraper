@@ -3,7 +3,8 @@ import urllib
 import datetime
 import requests
 
-OUTPUT_FILE="/var/www/comics/index.html"
+OUTPUT_DIR="/var/www/comics"
+INDEX_FILE=f"{OUTPUT_DIR}/index.html"
 
 ###
 ### DATES 'N SHIT
@@ -201,7 +202,7 @@ for image in images:
             imgurl = f"{url}{img}"
             #print(f"imgurl: {imgurl}")
             r = requests.get(imgurl, allow_redirects=True)
-            open(f"/var/www/comics/lb.jpg", 'wb').write(r.content)
+            open(f"{OUTPUT_DIR}/lb.jpg", 'wb').write(r.content)
             content = f"<a href='{url}'><img src='/lb.jpg' /></a>"
             ENDRESULT+=LUNARBABOON_BANNER + content + HR
             DONE=1
@@ -366,7 +367,7 @@ for image in images:
         imgurl = f"{url}/{image['src']}"
         #print(f"imgurl: {imgurl}")
         r = requests.get(imgurl, allow_redirects=True)
-        open(f"/var/www/comics/twp.gif", 'wb').write(r.content)
+        open(f"{OUTPUT_DIR}/twp.gif", 'wb').write(r.content)
         #print("Wrote file.")
 
         content = f"<a href='{url}'><img src='/twp.gif' /></a>"
