@@ -287,10 +287,10 @@ def pa_fetch():
     panels = soup.find(id="comic-panels")
     div = panels.find_all(class_="comic-panel")
 
-    RESULT=""
-
+    RESULT="<table cellspacing='0'><tr>"
     for d in div:
-        RESULT+=f"<img src='{d.img['src']}' />"
+        RESULT+=f"<td><img src='{d.img['src']}' /></td>"
+    RESULT+="</tr></table>"
 
 
     if valid:
