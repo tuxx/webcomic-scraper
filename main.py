@@ -145,12 +145,9 @@ for div in soup.findAll('div', {'class':lambda x: x and x.startswith('MainComic_
         continue
 
     for image in div.findAll('img'):
-        try:
-            content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-            ENDRESULT+=EXPLOSM_BANNER + content + HR
-            DONE=1
-        except:
-            pass
+        content = f"<a href='{url}'><img src='{image['src']}' /></a>"
+        ENDRESULT+=EXPLOSM_BANNER + content + HR
+        DONE=1
 
 
 ###
