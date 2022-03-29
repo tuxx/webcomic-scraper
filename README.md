@@ -13,18 +13,19 @@
 
 # Toons to add
 - eviscerati
-- https://loadingartist.com/index.xml
+- https://loadingartist.com/
 - https://www.extrafabulouscomics.com/
-- https://eatmorebikes.tumblr.com/
 - https://www.csectioncomics.com/
 - https://theycantalk.com/
 - https://pizzacakecomic.com/
 - https://portuguesegeese.com/
+- https://bonuscontext.com/
 
 ## Instagram toons
 
-- https://www.instagram.com/adhdinos/?hl=en
-- https://www.instagram.com/theghostofaprilhill/?hl=en
+- https://www.instagram.com/adhdinos/
+- https://www.instagram.com/theghostofaprilhill/
 - https://instagram.com/davidskaufjord/
-- https://www.instagram.com/nathanwpylestrangeplanet/?hl=en
-- https://www.instagram.com/thelifeofsharks/?hl=en
+- https://www.instagram.com/nathanwpylestrangeplanet/
+- https://www.instagram.com/thelifeofsharks/
+- https://www.instagram.com/system32comics/
