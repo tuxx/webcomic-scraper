@@ -139,20 +139,18 @@ ENDRESULT += findImgByClass(makeBanner("cad", "Ctrl+Alt+Del"), "https://cad-comi
 EXPLOSM_BANNER=makeBanner("candh", "Cyanide & Happiness")
 url = "https://explosm.net/comics/latest"
 soup = getSoupContent(url)
-images = soup.findAll('img')
 DONE=0
-for image in images:
+for div in soup.findAll('div', {'class':lambda x: x and x.startswith('MainComic__ComicImage')}):
     if DONE == 1:
         continue
-    try:
-        if "static" in image['src']:
-            if year in image['src']:
-                #print(image['src'])
-                content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-                ENDRESULT+=EXPLOSM_BANNER + content + HR
-                DONE=1
-    except:
-        pass
+
+    for image in div.findAll('img'):
+        try:
+            content = f"<a href='{url}'><img src='{image['src']}' /></a>"
+            ENDRESULT+=EXPLOSM_BANNER + content + HR
+            DONE=1
+        except:
+            pass
 
 
 ###
