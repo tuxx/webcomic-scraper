@@ -141,10 +141,9 @@ url = "https://explosm.net/comics/latest"
 soup = getSoupContent(url)
 DONE=0
 for div in soup.findAll('div', {'class':lambda x: x and x.startswith('MainComic__ComicImage')}):
-    if DONE == 1:
-        continue
-
     for image in div.findAll('img'):
+        if DONE == 1:
+            continue
         content = f"<a href='{url}'><img src='{image['src']}' /></a>"
         ENDRESULT+=EXPLOSM_BANNER + content + HR
         DONE=1
