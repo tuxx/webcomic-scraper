@@ -84,10 +84,7 @@ def findDivById(BANNER, URL, ID, PREPEND_URL=False):
     soup = getSoupContent(URL)
     div = soup.find("div", {"id": ID})
     div=str(div)
-    if PREPEND_URL:
-        content = f"<a href='{URL}'>{URL}/{div}</a>"
-    else:
-        content = f"<a href='{URL}'>{div}</a>"
+    content = f"<a href='{URL}'>{div}</a>"
 
     return BANNER + content + HR
 
