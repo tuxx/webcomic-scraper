@@ -88,8 +88,9 @@ def findImgById(BANNER, URL, ID, PREPEND_URL=False):
 
     return BANNER + content + HR
 
-def makeBanner(anchor, title):
+def makeBanner(title):
     global INDEX
+    anchor=title.replace(" ", "").lower()
     INDEX = INDEX + f"<li><a href='#{anchor}'>{title}</a></li>\n"
 
     return f"""
@@ -118,6 +119,7 @@ def getSoupContent(url):
 ###
 ### Abstruse Goose
 ###
+title = "Abstruse Goose"
 url = "http://abstrusegoose.com"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -125,19 +127,19 @@ for image in images:
     try:
         if "strips" in image['src']:
             content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-            ENDRESULT+=makeBanner('goose', 'Abstruse Goose') + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
     except:
         pass
 
 ###
 ### Amazing Super Powers
 ###
-ENDRESULT += findImgById(makeBanner("ASP", "Amazing Super Powers"), "http://amazingsuperpowers.com", "comic-1")
+ENDRESULT += findImgById(makeBanner('Amazing Super Powers'), "http://amazingsuperpowers.com", "comic-1")
 
 ###
 ### Bonus Context
 ###
-BONUS_BANNER=makeBanner("bonuscontext", "Bonus Context")
+title="Bonus Context"
 url = "https://bonuscontext.com/"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -148,20 +150,21 @@ for image in images:
     try:
         if image['src'].startswith("/comics/"):
             content = f"<a href='{url}'><img src='{url}{image['src']}' /></a>"
-            ENDRESULT+=BONUS_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
 
+
 ###
 ### CTRL+ALT+DEL
 ###
-ENDRESULT += findImgByClass(makeBanner("cad", "Ctrl+Alt+Del"), "https://cad-comic.com", ["comic-display"])
+ENDRESULT += findImgByClass(makeBanner("Ctrl+Alt+Del"), "https://cad-comic.com", ["comic-display"])
 
 ###
 ### EXPLOSM
 ###
-EXPLOSM_BANNER=makeBanner("candh", "Cyanide & Happiness")
+title="Cyanide & Happiness"
 url = "https://explosm.net/comics/latest"
 soup = getSoupContent(url)
 DONE=0
@@ -171,7 +174,7 @@ for div in soup.findAll('div', {'class':lambda x: x and x.startswith('MainComic_
             continue
         try:
             content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-            ENDRESULT+=EXPLOSM_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
         except:
             pass
@@ -180,19 +183,17 @@ for div in soup.findAll('div', {'class':lambda x: x and x.startswith('MainComic_
 ###
 ### DILBERT
 ###
-DILBERT_BANNER=makeBanner("dilbert", "Dilbert")
-ENDRESULT += findImgByClass(DILBERT_BANNER, "http://dilbert.com", ["img-responsive", "img-comic"])
+ENDRESULT += findImgByClass(makeBanner("Dilbert"), "http://dilbert.com", ["img-responsive", "img-comic"])
 
 ###
 ### QWANTZ
 ###
-QWANTZ_BANNER=makeBanner("dinosaur", "Dinosaur Comic")
-ENDRESULT += findImgByClass(QWANTZ_BANNER, "https://qwantz.com", ["comic"], True)
+ENDRESULT += findImgByClass(makeBanner("Dinosaur Comic"), "https://qwantz.com", ["comic"], True)
 
 ###
 ### EXTRA FABULOUS
 ###
-EXFAB_BANNER=makeBanner("extrafab", "Extra Fabulous")
+title = "Extra Fabulous"
 url = "https://www.reddit.com/r/ExtraFabulousComics"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -203,7 +204,7 @@ for image in images:
     try:
         if "Post image" in image['alt']:
             content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-            ENDRESULT+=EXFAB_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
@@ -212,7 +213,7 @@ for image in images:
 ###
 ### EXOCOMICS
 ###
-EXOCOMICS_BANNER=makeBanner("extra", "Extra Ordinary")
+title = "Extra Ordinary"
 url = "https://www.exocomics.com/"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -221,7 +222,7 @@ for image in images:
         if "image-style-main-comic" in image['class']:
             #print(image['src'])
             content = f"<a href='{url}'><img src='https://exocomics.com{image['src']}' /></a>"
-            ENDRESULT+=EXOCOMICS_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
@@ -229,7 +230,7 @@ for image in images:
 ###
 ### LUNAR BABOON
 ###
-LUNARBABOON_BANNER=makeBanner("lunarbaboon", "Lunar Baboon")
+title = "Lunar Baboon"
 url = "http://lunarbaboon.com"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -246,7 +247,7 @@ for image in images:
             r = requests.get(imgurl, allow_redirects=True)
             open(f"{OUTPUT_DIR}/lb.jpg", 'wb').write(r.content)
             content = f"<a href='{url}'><img src='/lb.jpg' /></a>"
-            ENDRESULT+=LUNARBABOON_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
@@ -254,18 +255,17 @@ for image in images:
 
 ###
 ### Loading Artist
-banner=makeBanner("loadingartist", "Loading Artist")
+title = "Loading Artist"
 comic = getComicByRss("https://loadingartist.com/index.xml", "aap")
 soup = bs4.BeautifulSoup(comic, features="html5lib")
 images = soup.findAll('img')
-ENDRESULT += banner + str(images[0]) + HR
+ENDRESULT += makeBanner(title) + str(images[0]) + HR
 
 ### 
 ###
 ### Moonbeard
 ###
-MOONBEARD_BANNER=makeBanner("moonbeard", "Moonbeard")
-IMG=findImgById(MOONBEARD_BANNER, "https://moonbeard.com", "comic-1")
+IMG=findImgById(makeBanner("Moonbeard"), "https://moonbeard.com", "comic-1")
 IMG = IMG.replace('<div id="comic-1" class="comicpane">', "")
 IMG = IMG.replace('</div>', "")
 ENDRESULT += IMG
@@ -273,8 +273,7 @@ ENDRESULT += IMG
 ###
 ### MurderCake
 ###
-MURDER_BANNER=makeBanner("murdercake", "Murdercake")
-IMG=findImgById(MURDER_BANNER, "http://murdercake.com", "comic")
+IMG=findImgById(makeBanner("Murdercake"), "http://murdercake.com", "comic")
 IMG = IMG.replace('<div id="comic">', "")
 IMG = IMG.replace('</div>', "")
 ENDRESULT += IMG
@@ -282,7 +281,7 @@ ENDRESULT += IMG
 ###
 ### ODDBALL
 ###
-ODDBALL_BANNER=makeBanner("oddball", "Oddball")
+title="Oddball"
 url = "https://sarahcandersen.com/"
 soup = getSoupContent(url)
 images = soup.findAll('a')
@@ -294,7 +293,7 @@ for image in images:
         #print(image['href'])
         if image['href'][-3:] == "jpg":
             content = f"<a href='{url}'><img src='{image['href']}' /></a>"
-            ENDRESULT+=ODDBALL_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
@@ -303,8 +302,7 @@ for image in images:
 ###
 ### OPTIPESS
 ###
-OPTIPESS_BANNER=makeBanner("optipess", "Optipess")
-IMG=findImgById(OPTIPESS_BANNER, "https://optipess.com", "comic")
+IMG=findImgById(makeBanner("Optipess"), "https://optipess.com", "comic")
 IMG = IMG.replace('<div id="comic">', "")
 IMG = IMG.replace('</div>', "")
 ENDRESULT += IMG
@@ -312,7 +310,7 @@ ENDRESULT += IMG
 ###
 ### Pizza Cake
 ###
-PIZZA_BANNER=makeBanner("pizzacake", "Pizzacake")
+title = "Pizzacake"
 url = "https://pizzacakecomic.com"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -323,7 +321,7 @@ for image in images:
     try:
         if str(image['width']) == "1280":
             content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-            ENDRESULT+=PIZZA_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
@@ -331,7 +329,7 @@ for image in images:
 ###
 ### POORLY DRAWN LINES
 ###
-PDL_BANNER=makeBanner("poorlydrawn", "Poorly Drawn Lines")
+title="Poorly Drawn Lines"
 url = "https://poorlydrawnlines.com/"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -340,7 +338,7 @@ for image in images:
         if image['class'][0].startswith("wp-image"):
             #print(image['src'])
             content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-            ENDRESULT+=PDL_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
@@ -376,19 +374,17 @@ PENNY=pa_fetch()
 if not pa_fetch:
     print("Penny arcade failed bruh")
 else:
-    PENNY_BANNER=makeBanner("pennyarcade", "Penny Arcade")
-    ENDRESULT+=PENNY_BANNER + PENNY + HR
+    ENDRESULT+=makeBanner("Penny Arcade") + PENNY + HR
 
 ###
 ### RAPH COMIC
 ###
-RAPH_BANNER=makeBanner("raphcomic", "Raph Comic")
-ENDRESULT += findImgByClass(RAPH_BANNER, "https://raphcomic.com", ["img-fluid", "lazyload"], True, True)
+ENDRESULT += findImgByClass(makeBanner("Raph Comic"), "https://raphcomic.com", ["img-fluid", "lazyload"], True, True)
 
 ###
 ### SAVAGE CHICKENS
 ###
-SC_BANNER=makeBanner("savagechickens", "Savage chickens")
+title = "Savage Chickens"
 url = "https://www.savagechickens.com/"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -407,7 +403,7 @@ for image in images:
 
                 if DONE == 1: # Grab 2nd image, we gots the comic boizzz
                     content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-                    ENDRESULT+=SC_BANNER + content + HR
+                    ENDRESULT+=makeBanner(title) + content + HR
                 #    print("Adding savage chicken")
                     DONE=2
     except:
@@ -416,7 +412,7 @@ for image in images:
 ###
 ### smbc
 ###
-smbc_banner=makeBanner("smbc", "SMBC")
+title="SMBC"
 url = "http://smbc-comics.com"
 soup = getSoupContent(url)
 div = soup.find("div", {"id": "cc-comicbody"})
@@ -424,12 +420,12 @@ sep = '/>'
 div = str(div).split(sep, 1)[0]
 content = f"<a href='{url}'>{div}/></a>"
 content = content.replace('<div id="cc-comicbody">', "")
-ENDRESULT+=smbc_banner + content + HR
+ENDRESULT+=makeBanner(title) + content + HR
 
 ###
 ### THEYCANTALK
 ###
-TCT_BANNER=makeBanner("theycantalk", "They Can Talk")
+title = "They Can Talk"
 url = "https://theycantalk.com"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -439,13 +435,13 @@ for image in images:
         continue
 
     content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-    ENDRESULT+=TCT_BANNER + content + HR
+    ENDRESULT+=makeBanner(title) + content + HR
     DONE=1
 
 ###
 ### THREE WORD PHRASE
 ###
-TWF_BANNER=makeBanner("threewordphrase", "Three Word Phrase")
+title = "Three Word Phrase"
 url = "http://threewordphrase.com"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -461,13 +457,13 @@ for image in images:
         #print("Wrote file.")
 
         content = f"<a href='{url}'><img src='/twp.gif' /></a>"
-        ENDRESULT+=TWF_BANNER + content + HR
+        ENDRESULT+=makeBanner(title) + content + HR
         DONE=1
 
 ###
 ### TOONHOLE
 ###
-TOONHOLE_BANNER=makeBanner("toonhole", "Toonhole")
+title="Toonhole"
 url = "https://toonhole.com/"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -479,7 +475,7 @@ for image in images:
         if "attachment-post-thumbnail" in image['class']:
             if year in image['src']:
                 content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-                ENDRESULT+=TOONHOLE_BANNER + content + HR
+                ENDRESULT+=makeBanner(title) + content + HR
                 DONE=1
     except:
         pass
@@ -487,7 +483,7 @@ for image in images:
 ###
 ### War And Peas
 ###
-WAP_BANNER=makeBanner("warandpeas", "War and Peas")
+title = "War And Peas"
 url = "https://warandpeas.com/"
 soup = getSoupContent(url)
 images = soup.findAll('img')
@@ -498,15 +494,14 @@ for image in images:
     try:
         if year in image['src']:
             content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-            ENDRESULT+=WAP_BANNER + content + HR
+            ENDRESULT+=makeBanner(title) + content + HR
             DONE=1
     except:
         pass
 ###
 ### XKCD.COM
 ###
-XKCDCOM_BANNER=makeBanner("xkcd", "XKCD")
-IMG=findImgById(XKCDCOM_BANNER, "https://xkcd.com", "comic")
+IMG=findImgById(makeBanner("XKCD"), "https://xkcd.com", "comic")
 IMG = IMG.replace("\"//", "https://")
 IMG = IMG.replace('<div id="comic">', "")
 IMG = IMG.replace('</div>', "")
