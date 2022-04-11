@@ -13,6 +13,15 @@
 
 # Toons to add
 
+- https://www.buttersafe.com/
+- https://www.peanuts.com/
+- https://www.little-gamers.com/
+- https://www.vgcats.com/
+- https://lectrr.be/nl/cartoons
+- https://geek-and-poke.com/
+- https://www.nrc.nl/rubriek/fokke-sukke/
+
+
 **Are these even updated anymore?**
 - https://www.csectioncomics.com/ 
 - https://portuguesegeese.com/

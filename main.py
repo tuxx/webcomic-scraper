@@ -80,11 +80,24 @@ def findImgByClass(BANNER, URL, CLASS, PREPEND_URL=False, DATASRC=False):
         except:
             pass
 
-def findImgById(BANNER, URL, ID, PREPEND_URL=False):
+def findDivById(BANNER, URL, ID, PREPEND_URL=False):
     soup = getSoupContent(URL)
     div = soup.find("div", {"id": ID})
     div=str(div)
-    content = f"<a href='{URL}'>{div}</a>"
+    if PREPEND_URL:
+        content = f"<a href='{URL}'>{URL}/{div}</a>"
+    else:
+        content = f"<a href='{URL}'>{div}</a>"
+
+    return BANNER + content + HR
+
+def findDivByClass(BANNER, URL, CLASS):
+    soup = getSoupContent(URL)
+    div = soup.find("div", {"class": CLASS})
+    div=str(div)
+    bs=bs4.BeautifulSoup(div, features="html5lib")
+    img = bs.find("img")
+    content = f"<a href='{URL}'><img src='{img['src']}'/></a>"
 
     return BANNER + content + HR
 
@@ -134,7 +147,7 @@ for image in images:
 ###
 ### Amazing Super Powers
 ###
-ENDRESULT += findImgById(makeBanner('Amazing Super Powers'), "http://amazingsuperpowers.com", "comic-1")
+ENDRESULT += findDivById(makeBanner('Amazing Super Powers'), "http://amazingsuperpowers.com", "comic-1")
 
 ###
 ### Bonus Context
@@ -265,7 +278,7 @@ ENDRESULT += makeBanner(title) + str(images[0]) + HR
 ###
 ### Moonbeard
 ###
-IMG=findImgById(makeBanner("Moonbeard"), "https://moonbeard.com", "comic-1")
+IMG=findDivById(makeBanner("Moonbeard"), "https://moonbeard.com", "comic-1")
 IMG = IMG.replace('<div id="comic-1" class="comicpane">', "")
 IMG = IMG.replace('</div>', "")
 ENDRESULT += IMG
@@ -273,7 +286,7 @@ ENDRESULT += IMG
 ###
 ### MurderCake
 ###
-IMG=findImgById(makeBanner("Murdercake"), "http://murdercake.com", "comic")
+IMG=findDivById(makeBanner("Murdercake"), "http://murdercake.com", "comic")
 IMG = IMG.replace('<div id="comic">', "")
 IMG = IMG.replace('</div>', "")
 ENDRESULT += IMG
@@ -302,7 +315,7 @@ for image in images:
 ###
 ### OPTIPESS
 ###
-IMG=findImgById(makeBanner("Optipess"), "https://optipess.com", "comic")
+IMG=findDivById(makeBanner("Optipess"), "https://optipess.com", "comic")
 IMG = IMG.replace('<div id="comic">', "")
 IMG = IMG.replace('</div>', "")
 ENDRESULT += IMG
@@ -410,6 +423,28 @@ for image in images:
         pass
 
 ###
+### SIGMUND
+###
+title = "Sigmund"
+url = "http://sigmund.nl"
+soup = getSoupContent(url)
+images = soup.findAll('img')
+DONE=0
+for image in images:
+    if DONE == 1:
+        continue
+    try:
+        if image['id'] == "strook":
+            r = requests.get(image['src'], allow_redirects=True)
+            open(f"{OUTPUT_DIR}/sigmund.gif", 'wb').write(r.content)
+            content = f"<a href='{url}'><img src='/sigmund.gif' /></a>"
+            ENDRESULT+=makeBanner(title) + content + HR
+            DONE=1
+    except:
+        pass
+
+
+###
 ### smbc
 ###
 title="SMBC"
@@ -498,10 +533,35 @@ for image in images:
             DONE=1
     except:
         pass
+
+###
+### Wumo
+###
+IMG=findDivByClass(makeBanner("Wumo"), "https://wumo.com/wumo", "box-content")
+IMG = IMG.replace("/img", "https://wumo.com/img")
+ENDRESULT += IMG
+
+"""
+title = "Wumo"
+url = "http://wumo.com/wumo"
+soup = getSoupContent(url)
+images = soup.findAll('img')
+DONE=0
+for image in images:
+    if DONE == 1:
+        continue
+    try:
+        if year in image['src']:
+            content = f"<a href='{url}'><img src='{image['src']}' /></a>"
+            ENDRESULT+=makeBanner(title) + content + HR
+            DONE=1
+    except:
+        pass
+"""
 ###
 ### XKCD.COM
 ###
-IMG=findImgById(makeBanner("XKCD"), "https://xkcd.com", "comic")
+IMG=findDivById(makeBanner("XKCD"), "https://xkcd.com", "comic")
 IMG = IMG.replace("\"//", "https://")
 IMG = IMG.replace('<div id="comic">', "")
 IMG = IMG.replace('</div>', "")
