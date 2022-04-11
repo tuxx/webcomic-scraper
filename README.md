@@ -20,6 +20,7 @@
 - https://lectrr.be/nl/cartoons
 - https://geek-and-poke.com/
 - https://www.nrc.nl/rubriek/fokke-sukke/
+- https://dirkjan.nl/
 
 
 **Are these even updated anymore?**
