@@ -12,14 +12,10 @@
 - Raise hell
 
 # Toons to add
-- eviscerati
-- https://loadingartist.com/
-- https://www.extrafabulouscomics.com/
-- https://www.csectioncomics.com/
-- https://theycantalk.com/
-- https://pizzacakecomic.com/
+
+**Are these even updated anymore?**
+- https://www.csectioncomics.com/ 
 - https://portuguesegeese.com/
-- https://bonuscontext.com/
 
 ## Instagram toons
 
@@ -29,3 +25,4 @@
 - https://www.instagram.com/nathanwpylestrangeplanet/
 - https://www.instagram.com/thelifeofsharks/
 - https://www.instagram.com/system32comics/
+- https://www.instagram.com/club.cryptid/

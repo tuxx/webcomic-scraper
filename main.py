@@ -2,6 +2,7 @@ import bs4
 import urllib
 import datetime
 import requests
+import feedparser
 
 OUTPUT_DIR="/var/www/comics"
 OUTPUT_FILE=f"{OUTPUT_DIR}/index.html"
@@ -97,16 +98,22 @@ def makeBanner(anchor, title):
 <a href="#index">&#x21E7;</a></h1>
 """
 
+def getComicByRss(feedurl, getitem):
+    d = feedparser.parse(feedurl)
+    content = d['entries'][0]['content'][0]['value']
+    return content
+
 def getSoupContent(url):
     req = urllib.request.Request(
         url,
         data=None,
         headers={
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0'
         }
     )
     url_contents = urllib.request.urlopen(req).read()
     return bs4.BeautifulSoup(url_contents, features="html5lib")
+
 
 ###
 ### Abstruse Goose
@@ -116,7 +123,6 @@ soup = getSoupContent(url)
 images = soup.findAll('img')
 for image in images:
     try:
-        #print(image['src'])
         if "strips" in image['src']:
             content = f"<a href='{url}'><img src='{image['src']}' /></a>"
             ENDRESULT+=makeBanner('goose', 'Abstruse Goose') + content + HR
@@ -127,6 +133,25 @@ for image in images:
 ### Amazing Super Powers
 ###
 ENDRESULT += findImgById(makeBanner("ASP", "Amazing Super Powers"), "http://amazingsuperpowers.com", "comic-1")
+
+###
+### Bonus Context
+###
+BONUS_BANNER=makeBanner("bonuscontext", "Bonus Context")
+url = "https://bonuscontext.com/"
+soup = getSoupContent(url)
+images = soup.findAll('img')
+DONE=0
+for image in images:
+    if DONE == 1:
+        continue
+    try:
+        if image['src'].startswith("/comics/"):
+            content = f"<a href='{url}'><img src='{url}{image['src']}' /></a>"
+            ENDRESULT+=BONUS_BANNER + content + HR
+            DONE=1
+    except:
+        pass
 
 ###
 ### CTRL+ALT+DEL
@@ -142,11 +167,14 @@ soup = getSoupContent(url)
 DONE=0
 for div in soup.findAll('div', {'class':lambda x: x and x.startswith('MainComic__ComicImage')}):
     for image in div.findAll('img'):
-        if DONE == 1:
+        if DONE ==1:
             continue
-        content = f"<a href='{url}'><img src='{image['src']}' /></a>"
-        ENDRESULT+=EXPLOSM_BANNER + content + HR
-        DONE=1
+        try:
+            content = f"<a href='{url}'><img src='{image['src']}' /></a>"
+            ENDRESULT+=EXPLOSM_BANNER + content + HR
+            DONE=1
+        except:
+            pass
 
 
 ###
@@ -160,6 +188,26 @@ ENDRESULT += findImgByClass(DILBERT_BANNER, "http://dilbert.com", ["img-responsi
 ###
 QWANTZ_BANNER=makeBanner("dinosaur", "Dinosaur Comic")
 ENDRESULT += findImgByClass(QWANTZ_BANNER, "https://qwantz.com", ["comic"], True)
+
+###
+### EXTRA FABULOUS
+###
+EXFAB_BANNER=makeBanner("extrafab", "Extra Fabulous")
+url = "https://www.reddit.com/r/ExtraFabulousComics"
+soup = getSoupContent(url)
+images = soup.findAll('img')
+DONE=0
+for image in images:
+    if DONE == 1:
+        continue
+    try:
+        if "Post image" in image['alt']:
+            content = f"<a href='{url}'><img src='{image['src']}' /></a>"
+            ENDRESULT+=EXFAB_BANNER + content + HR
+            DONE=1
+    except:
+        pass
+
 
 ###
 ### EXOCOMICS
@@ -196,12 +244,23 @@ for image in images:
             imgurl = f"{url}{img}"
             #print(f"imgurl: {imgurl}")
             r = requests.get(imgurl, allow_redirects=True)
-            open(f"{OUTPUT_DIR}/lb.jpg", 'wb').write(r.content)
+            open(f"/var/www/comics/lb.jpg", 'wb').write(r.content)
             content = f"<a href='{url}'><img src='/lb.jpg' /></a>"
             ENDRESULT+=LUNARBABOON_BANNER + content + HR
             DONE=1
     except:
         pass
+
+
+###
+### Loading Artist
+banner=makeBanner("loadingartist", "Loading Artist")
+comic = getComicByRss("https://loadingartist.com/index.xml", "aap")
+soup = bs4.BeautifulSoup(comic, features="html5lib")
+images = soup.findAll('img')
+ENDRESULT += banner + str(images[0]) + HR
+
+### 
 ###
 ### Moonbeard
 ###
@@ -240,6 +299,7 @@ for image in images:
     except:
         pass
 
+
 ###
 ### OPTIPESS
 ###
@@ -248,6 +308,25 @@ IMG=findImgById(OPTIPESS_BANNER, "https://optipess.com", "comic")
 IMG = IMG.replace('<div id="comic">', "")
 IMG = IMG.replace('</div>', "")
 ENDRESULT += IMG
+
+###
+### Pizza Cake
+###
+PIZZA_BANNER=makeBanner("pizzacake", "Pizzacake")
+url = "https://pizzacakecomic.com"
+soup = getSoupContent(url)
+images = soup.findAll('img')
+DONE=0
+for image in images:
+    if DONE == 1:
+        continue
+    try:
+        if str(image['width']) == "1280":
+            content = f"<a href='{url}'><img src='{image['src']}' /></a>"
+            ENDRESULT+=PIZZA_BANNER + content + HR
+            DONE=1
+    except:
+        pass
 
 ###
 ### POORLY DRAWN LINES
@@ -282,10 +361,11 @@ def pa_fetch():
     div = panels.find_all(class_="comic-panel")
 
     RESULT="<table cellspacing='0'><tr>"
+
     for d in div:
         RESULT+=f"<td><img src='{d.img['src']}' /></td>"
-    RESULT+="</tr></table>"
 
+    RESULT+="</tr></table>"
 
     if valid:
         return RESULT
@@ -347,6 +427,22 @@ content = content.replace('<div id="cc-comicbody">', "")
 ENDRESULT+=smbc_banner + content + HR
 
 ###
+### THEYCANTALK
+###
+TCT_BANNER=makeBanner("theycantalk", "They Can Talk")
+url = "https://theycantalk.com"
+soup = getSoupContent(url)
+images = soup.findAll('img')
+DONE=0
+for image in images:
+    if DONE == 1:
+        continue
+
+    content = f"<a href='{url}'><img src='{image['src']}' /></a>"
+    ENDRESULT+=TCT_BANNER + content + HR
+    DONE=1
+
+###
 ### THREE WORD PHRASE
 ###
 TWF_BANNER=makeBanner("threewordphrase", "Three Word Phrase")
@@ -361,7 +457,7 @@ for image in images:
         imgurl = f"{url}/{image['src']}"
         #print(f"imgurl: {imgurl}")
         r = requests.get(imgurl, allow_redirects=True)
-        open(f"{OUTPUT_DIR}/twp.gif", 'wb').write(r.content)
+        open(f"/var/www/comics/twp.gif", 'wb').write(r.content)
         #print("Wrote file.")
 
         content = f"<a href='{url}'><img src='/twp.gif' /></a>"
