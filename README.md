@@ -1,11 +1,15 @@
 # Install
 - Put `web/` files in httpd root folder
 - edit `OUTPUT_FILE` in `main.py` to the `index.html` location inside your httpd root folder
-- pip install -r requirements.txt
-- python main.py
+- `pip install -r requirements.txt`
+- `python main.py`
+
+or
+
+- `python main.py pennyarcade` to fetch one comic and output it to test.html
 
 # Todo
-- Make function per comic so you can test fetching 1 comic
+- ~~Make function per comic so you can test fetching 1 comic~~
 - Make instagram scraper for instagram comics
 - Clean up code
 - Drink beer
