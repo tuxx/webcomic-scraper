@@ -4,6 +4,7 @@ import pkgutil
 import bs4
 import urllib
 import requests
+import feedparser
 
 
 class Comic(object):
@@ -15,6 +16,7 @@ class Comic(object):
         <h1>Index</h1>
         <ul>
         """
+        self.OUTPUT_DIR="/var/www/comics"
 
     def getSoupContent(self, url):
         req = urllib.request.Request(
@@ -35,6 +37,10 @@ class Comic(object):
     <h1><a href="#{anchor}">{title}</a> 
     <a href="#index">&#x21E7;</a></h1>
     """
+    def getComicByRss(self, feedurl, getitem):
+        d = feedparser.parse(feedurl)
+        content = d['entries'][0]['content'][0]['value']
+        return content
 
     def findImgByClass(self, BANNER, URL, CLASS, PREPEND_URL=False, DATASRC=False):
         soup = self.getSoupContent(URL)
@@ -113,7 +119,7 @@ class ComicCollection(object):
                 clsmembers = inspect.getmembers(comic_module, inspect.isclass)
                 for (_, c) in clsmembers:
                     # Only add classes that are a sub class of Comic, but NOT Comic itself
-                    if issubclass(c, Comic) & (c is not Comic):
+                    if issubclass(c, Comic) and (c is not Comic):
                         print(f'    Found comic class: {c.__module__}.{c.__name__}')
                         self.comics.append(c())
 
