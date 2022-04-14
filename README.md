@@ -1,22 +1,31 @@
+# Description
+HTML scraping script that gets some online web comics and displays them on a single page, because i am lazy.
+
 # Install
-- Put `web/` files in httpd root folder
-- edit `OUTPUT_FILE` in `main.py` to the `index.html` location inside your httpd root folder
 - `pip install -r requirements.txt`
-- `python main.py`
-
-or
-
-- `python main.py pennyarcade` to fetch one comic and output it to test.html
+- python main.py
 
 # Todo
-- ~~Make function per comic so you can test fetching 1 comic~~
+
+## Work In Progress
+- Make all comics as plugins in the comics/ directory 
+- Actually output HTML (currently it just prints the scraped html)
+- Discard old.py
+
+## Nice 2 haves
+- Create a jinja2 html template
 - Make instagram scraper for instagram comics
-- Clean up code
+- Check when a comic has been updated and display that (or put it on the top of the page, so you dont have to scroll so much)
+
+## Probably never gonna happen
+- Actually scrape all the released comics from a website and keep a local cache (i'm looking at you [User Friendly](https://en.wikipedia.org/wiki/User_Friendly) &#128542;)
+
+## General life todo
 - Drink beer
 - Raise hell
+- Pet dogs
 
 # Toons to add
-
 - https://www.buttersafe.com/
 - https://www.peanuts.com/
 - https://www.little-gamers.com/
@@ -25,8 +34,6 @@ or
 - https://geek-and-poke.com/
 - https://www.nrc.nl/rubriek/fokke-sukke/
 - https://dirkjan.nl/
-- http://www.bunicomic.com/
-
 
 **Are these even updated anymore?**
 - https://www.csectioncomics.com/ 
