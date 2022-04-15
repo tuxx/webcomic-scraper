@@ -5,6 +5,7 @@ import bs4
 import urllib
 import requests
 import feedparser
+import datetime
 
 
 class Comic(object):
@@ -17,6 +18,8 @@ class Comic(object):
         <ul>
         """
         self.OUTPUT_DIR="/var/www/comics"
+        date = datetime.date.today()
+        self.year = date.strftime("%Y")
 
     def getSoupContent(self, url):
         req = urllib.request.Request(
@@ -72,7 +75,7 @@ class Comic(object):
 
         return BANNER + content + self.HR
 
-    def findDivByClass(BANNER, URL, CLASS):
+    def findDivByClass(self, BANNER, URL, CLASS):
         soup = self.getSoupContent(URL)
         div = soup.find("div", {"class": CLASS})
         div=str(div)
