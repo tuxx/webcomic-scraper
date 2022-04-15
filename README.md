@@ -21,7 +21,7 @@ HTML scraping script that gets some online web comics and displays them on a sin
 ## Work In Progress
 - [x] Make all current comics as plugins in the comics/ directory 
 - [ ] Actually output HTML (currently it just prints the scraped html)
-- [ ] Discard old.py
+- [x] Discard old.py
 
 ## Nice 2 haves
 - [ ] Create a jinja2 html template
