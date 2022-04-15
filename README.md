@@ -19,22 +19,22 @@ HTML scraping script that gets some online web comics and displays them on a sin
 # Todo
 
 ## Work In Progress
-- Make all comics as plugins in the comics/ directory 
-- Actually output HTML (currently it just prints the scraped html)
-- Discard old.py
+- [ ] Make all comics as plugins in the comics/ directory 
+- [ ] Actually output HTML (currently it just prints the scraped html)
+- [ ] Discard old.py
 
 ## Nice 2 haves
-- Create a jinja2 html template
-- Make instagram scraper for instagram comics
-- Check when a comic has been updated and display that (or put it on the top of the page, so you dont have to scroll so much)
+- [ ] Create a jinja2 html template
+- [ ] Make instagram scraper for instagram comics
+- [ ] Check when a comic has been updated and display that (or put it on the top of the page, so you dont have to scroll so much)
 
 ## Probably never gonna happen
-- Actually scrape all the released comics from a website and keep a local cache (i'm looking at you [User Friendly](https://en.wikipedia.org/wiki/User_Friendly) &#128542;)
+- [ ] Actually scrape all the released comics from a website and keep a local cache (i'm looking at you [User Friendly](https://en.wikipedia.org/wiki/User_Friendly) &#128542;)
 
 ## General life todo
-- Drink beer
-- Raise hell
-- Pet dogs
+- [x] Drink beer
+- [x] Raise hell
+- [x] Pet dogs
 
 # Toons to add
 - https://www.buttersafe.com/
