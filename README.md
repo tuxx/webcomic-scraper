@@ -1,3 +1,14 @@
+# Table of Contents
+- [Description](#description)
+- [Install](#install)
+- [Todo](#todo)
+  * [Work In Progress](#work-in-progress)
+  * [Nice 2 haves](#nice-2-haves)
+  * [Probably never gonna happen](#probably-never-gonna-happen)
+  * [General life todo](#general-life-todo)
+- [Toons to add](#toons-to-add)
+  * [Instagram toons](#instagram-toons)
+
 # Description
 HTML scraping script that gets some online web comics and displays them on a single page, because i am lazy.
 
