@@ -42,9 +42,7 @@ HTML scraping script that gets some online web comics and displays them on a sin
 - [x] Pet dogs
 
 # Toons to add
-- https://www.buttersafe.com/
 - https://www.peanuts.com/
-- https://www.little-gamers.com/
 - https://www.vgcats.com/
 - https://lectrr.be/nl/cartoons
 - https://geek-and-poke.com/
