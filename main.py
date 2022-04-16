@@ -1,11 +1,11 @@
 from comic_collection import ComicCollection
 import datetime
 
-date = datetime.date.today()
+date = datetime.datetime.today()
 year = date.strftime("%Y")
+OUTPUT_FILE="/var/www/comics/index.html"
 UPDATED_ON = date.strftime("%d-%m-%Y %H:%M:%S")
 LASTUPDATED=f"<center><h3>Last update: {UPDATED_ON}</h3></center>"
-ENDRESULT=""
 
 ###
 ### HTML HEADER
@@ -35,18 +35,17 @@ HTMLFOOT=f"""
 """
 
 def main():
+    global HTMLHEAD
     my_comics = ComicCollection('comics')
     comics=my_comics.get_all_comics()
-    print(comics)
-
-    #HTMLHEAD+=INDEX + f"""
-    #</ul>
-    #<center>
-    #{HR}
-    #"""
-    #f = open(OUTPUT_FILE, "w")
-    #f.write(HTMLHEAD + ENDRESULT + HTMLFOOT)
-    #f.close()
+    HTMLHEAD+=f"""
+    </ul>
+    <center>
+    <hr style='width:70%;text-align:left;margin-left:0'>
+    """
+    f = open(OUTPUT_FILE, "w")
+    f.write(HTMLHEAD + comics + HTMLFOOT)
+    f.close()
 
 if __name__ == '__main__':
     main()

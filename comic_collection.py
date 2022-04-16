@@ -12,11 +12,6 @@ class Comic(object):
     def __init__(self):
         self.description = 'UNKNOWN'
         self.HR="<hr style='width:70%;text-align:left;margin-left:0'>"
-        self.index="""
-        <div id="index"></div>
-        <h1>Index</h1>
-        <ul>
-        """
         self.OUTPUT_DIR="/var/www/comics"
         date = datetime.date.today()
         self.year = date.strftime("%Y")
@@ -34,12 +29,10 @@ class Comic(object):
 
     def makeBanner(self, title):
         anchor=title.replace(" ", "").lower()
-        self.index = self.index + f"<li><a href='#{anchor}'>{title}</a></li>\n"
-        return f"""
-    <div id="{anchor}"></div>
-    <h1><a href="#{anchor}">{title}</a> 
-    <a href="#index">&#x21E7;</a></h1>
-    """
+        return f"""<div id="{anchor}"></div>
+        <h1><a href="#{anchor}">{title}</a> 
+        <a href="#index">&#x21E7;</a></h1>
+        """
     def getComicByRss(self, feedurl, getitem):
         d = feedparser.parse(feedurl)
         content = d['entries'][0]['content'][0]['value']
@@ -97,7 +90,6 @@ class ComicCollection(object):
         self.comic_package = comic_package
         self.reload_comics()
 
-
     def reload_comics(self):
         self.comics = []
         self.seen_paths = []
@@ -109,8 +101,7 @@ class ComicCollection(object):
     def get_all_comics(self):
         ENDRESULT=""
         for comic in self.comics:
-            print(comic.fetch_comic())
-
+            ENDRESULT+=comic.fetch_comic()
         return ENDRESULT
 
     def walk_package(self, package):

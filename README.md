@@ -20,7 +20,7 @@ HTML scraping script that gets some online web comics and displays them on a sin
 
 ## Work In Progress
 - [x] Make all current comics as plugins in the comics/ directory 
-- [ ] Actually output HTML (currently it just prints the scraped html)
+- [x] Actually output HTML (currently it just prints the scraped html)
 - [x] Discard old.py
 
 ## Nice 2 haves
