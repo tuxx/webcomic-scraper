@@ -6,13 +6,14 @@ import urllib
 import requests
 import feedparser
 import datetime
+import config as cfg
 
 
 class Comic(object):
     def __init__(self):
         self.description = 'UNKNOWN'
         self.HR="<hr style='width:70%;text-align:left;margin-left:0'>"
-        self.OUTPUT_DIR="/var/www/comics"
+        self.OUTPUT_DIR=cfg.OUTPUT_DIR
         date = datetime.date.today()
         self.year = date.strftime("%Y")
 

@@ -13,8 +13,10 @@
 HTML scraping script that gets some online web comics and displays them on a single page, because i am lazy.
 
 # Install
+- Copy `web/` files to your webserver folder.
+- edit `config.py` and set the correct webserver folder.
 - `pip install -r requirements.txt`
-- python main.py
+- `python main.py`
 
 # Todo
 
