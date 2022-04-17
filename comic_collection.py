@@ -69,13 +69,16 @@ class Comic(object):
 
         return BANNER + content + self.HR
 
-    def findDivByClass(self, BANNER, URL, CLASS):
+    def findDivByClass(self, BANNER, URL, CLASS, PREPEND_URL=False):
         soup = self.getSoupContent(URL)
         div = soup.find("div", {"class": CLASS})
         div=str(div)
         bs=bs4.BeautifulSoup(div, features="html5lib")
         img = bs.find("img")
-        content = f"<a href='{URL}'><img src='{img['src']}'/></a>"
+        if PREPEND_URL:
+            content = f"<a href='{URL}'><img src='{URL}/{img['src']}'/></a>"
+        else:
+            content = f"<a href='{URL}'><img src='{img['src']}'/></a>"
 
         return BANNER + content + self.HR
 
