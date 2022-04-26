@@ -46,7 +46,6 @@ HTML scraping script that gets some online web comics and displays them on a sin
 - https://www.vgcats.com/
 - https://lectrr.be/nl/cartoons
 - https://geek-and-poke.com/
-- https://www.nrc.nl/rubriek/fokke-sukke/
 
 **Are these even updated anymore?**
 - https://www.csectioncomics.com/ 
