@@ -19,6 +19,7 @@ class AirBearEntertainment(comic_collection.Comic):
                     r = requests.get(imgurl, allow_redirects=True)
                     open(f"{self.OUTPUT_DIR}/abe.jpg", 'wb').write(r.content)
                     content = f"<a href='{self.url}'><img src='/abe.jpg' /></a>"
+                    print(content)
                     return self.makeBanner(self.title) + content + self.HR
             except:
                 pass
