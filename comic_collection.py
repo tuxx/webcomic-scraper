@@ -6,13 +6,14 @@ import urllib
 import requests
 import feedparser
 import datetime
+import config as cfg
 
 
 class Comic(object):
     def __init__(self):
         self.description = 'UNKNOWN'
         self.HR="<hr style='width:70%;text-align:left;margin-left:0'>"
-        self.OUTPUT_DIR="/home/tuxx/comics_web"
+        self.OUTPUT_DIR=cfg.OUTPUT_DIR
         date = datetime.date.today()
         self.year = date.strftime("%Y")
 
@@ -21,7 +22,7 @@ class Comic(object):
             url,
             data=None,
             headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0'
             }
         )
         url_contents = urllib.request.urlopen(req).read()
