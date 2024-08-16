@@ -25,6 +25,7 @@ HTML scraping script that gets some online web comics and displays them on a sin
 - [x] Actually output HTML (currently it just prints the scraped html)
 - [x] Discard old.py
 - [x] Config parser so that `OUTPUT_FILE` and `OUTPUT_DIR` are not defined in 2 files.
+- [x] Do not stop when one comic fails to scrape, just ignore that comic.
 - [ ] Make it possible to scrape 1 comic for testing purposes
 - [ ] Add index generator
 
