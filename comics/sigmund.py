@@ -8,7 +8,7 @@ class Sigmund(comic_collection.Comic):
     def __init__(self):
         super().__init__()
         self.title = "Sigmund"
-        self.url = "http://sigmund.nl"
+        self.url = "https://sigmund.nl"
 
     def fetch_comic(self):
         soup = self.getSoupContent(self.url)

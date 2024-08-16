@@ -9,21 +9,22 @@ class Oddball(comic_collection.Comic):
         super().__init__()
         self.title = "Oddball"
         self.url = "https://sarahcandersen.com"
-        self.url2 = f"{self.url}/page/2"
 
     def get_oddball(self, url):
         soup = self.getSoupContent(url)
-        links = soup.findAll('a')
+        links = soup.findAll('img')
+        i=0
         for link in links:
-            try:
-                if link['href'][-3:] == "jpg":
-                    content = f"<a href='{url}'><img src='{link['href']}' /></a>"
+            if i < 2:
+                i=i+1
+                continue
+            if i == 2:
+                try:
+                    content = f"<a href='{url}'>{link}</a>"
                     return self.makeBanner(self.title) + content + self.HR
-            except:
-                pass
+                except:
+                    pass
 
     def fetch_comic(self):
         result=self.get_oddball(self.url)
-        if result is None:
-            result=self.get_oddball(self.url2)
         return result
