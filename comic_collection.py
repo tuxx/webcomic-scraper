@@ -6,14 +6,13 @@ import urllib
 import requests
 import feedparser
 import datetime
-import config as cfg
 
 
 class Comic(object):
     def __init__(self):
         self.description = 'UNKNOWN'
         self.HR="<hr style='width:70%;text-align:left;margin-left:0'>"
-        self.OUTPUT_DIR=cfg.OUTPUT_DIR
+        self.OUTPUT_DIR="/home/tuxx/comics_web"
         date = datetime.date.today()
         self.year = date.strftime("%Y")
 
@@ -22,7 +21,7 @@ class Comic(object):
             url,
             data=None,
             headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0'
             }
         )
         url_contents = urllib.request.urlopen(req).read()
@@ -69,16 +68,16 @@ class Comic(object):
 
         return BANNER + content + self.HR
 
-    def findDivByClass(self, BANNER, URL, CLASS, PREPEND_URL=False):
+    def findDivByClass(self, BANNER, URL, CLASS):
         soup = self.getSoupContent(URL)
         div = soup.find("div", {"class": CLASS})
         div=str(div)
         bs=bs4.BeautifulSoup(div, features="html5lib")
         img = bs.find("img")
-        if PREPEND_URL:
-            content = f"<a href='{URL}'><img src='{URL}/{img['src']}'/></a>"
-        else:
+        try:
             content = f"<a href='{URL}'><img src='{img['src']}'/></a>"
+        except:
+            content = f"<a href='{URL}'><img src='{img['data-src']}'/></a>"
 
         return BANNER + content + self.HR
 
@@ -105,7 +104,11 @@ class ComicCollection(object):
     def get_all_comics(self):
         ENDRESULT=""
         for comic in self.comics:
-            ENDRESULT+=comic.fetch_comic()
+            print(str(comic.title))  
+            try:
+                ENDRESULT+=comic.fetch_comic()
+            except:
+                print("Failed.")
         return ENDRESULT
 
     def walk_package(self, package):
