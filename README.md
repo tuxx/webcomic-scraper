@@ -20,43 +20,30 @@ HTML scraping script that gets some online web comics and displays them on a sin
 
 # Todo
 
-## Work In Progress
+## Donezell Washington
 - [x] Make all current comics as plugins in the comics/ directory 
 - [x] Actually output HTML (currently it just prints the scraped html)
 - [x] Discard old.py
 - [x] Config parser so that `OUTPUT_FILE` and `OUTPUT_DIR` are not defined in 2 files.
 - [x] Do not stop when one comic fails to scrape, just ignore that comic.
+- [x] Make instagram scraper for instagram comics
+  - [ ] Add the instagram scraping to [comic_collection.py](comic_collection.py) instead of [this](comics/adhdinos.py) and [that](comics/davidskaufjord.py)
+
+## To be done
 - [ ] Make it possible to scrape 1 comic for testing purposes
 - [ ] Add index generator
-
-## Nice 2 haves
-- [ ] Create a jinja2 html template
-- [ ] Make instagram scraper for instagram comics
 - [ ] Check when a comic has been updated and display that (or put it on the top of the page, so you dont have to scroll so much)
-
-## Probably never gonna happen
-- [ ] Actually scrape all the released comics from a website and keep a local cache (i'm looking at you [User Friendly](https://en.wikipedia.org/wiki/User_Friendly) &#128542;)
 
 ## General life todo
 - [x] Drink beer
 - [x] Raise hell
 - [x] Pet dogs
 
-# Toons to add
-- https://www.peanuts.com/
-- https://www.vgcats.com/
-- https://lectrr.be/nl/cartoons
-- https://geek-and-poke.com/
-
-**Are these even updated anymore?**
-- https://www.csectioncomics.com/ 
-- https://portuguesegeese.com/
-
 ## Instagram toons
 
-- https://www.instagram.com/adhdinos/
+- ~~https://www.instagram.com/adhdinos/~~
+- ~~https://instagram.com/davidskaufjord/~~
 - https://www.instagram.com/theghostofaprilhill/
-- https://instagram.com/davidskaufjord/
 - https://www.instagram.com/nathanwpylestrangeplanet/
 - https://www.instagram.com/thelifeofsharks/
 - https://www.instagram.com/system32comics/
