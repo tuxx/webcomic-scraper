@@ -1,11 +1,12 @@
-<details>
-<summary>Example image of output</summary>
-<img src="https://i.imgur.com/vu7W8aV.png" />
-</details>
 
 
 # Description
 HTML scraping script that gets some online web comics and displays them on a single page, because i am lazy.
+
+<details>
+<summary>Example of the webpage that is generated</summary>
+<img src="https://i.imgur.com/vu7W8aV.png" />
+</details>
 
 # Install
 - Copy `web/` files to your webserver folder.
