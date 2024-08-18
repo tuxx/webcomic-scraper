@@ -5,6 +5,7 @@ charset-normalizer==2.0.12
 feedparser==6.0.8
 html5lib==1.1
 idna==3.3
+instaloader==4.13
 requests==2.27.1
 sgmllib3k==1.0.0
 six==1.16.0
