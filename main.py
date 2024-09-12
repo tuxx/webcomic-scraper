@@ -35,10 +35,12 @@ HTMLFOOT=f"""
 </body>
 </html>
 """
-
+def requestComic():
+    comic_title = input("Enter comic title you want to try")
+    
 def main():
     my_comics = ComicCollection('comics')
-    comics=my_comics.get_all_comics()
+    comics=my_comics.get_one_comic(requestComic)
 
     f = open(f"{cfg.OUTPUT_DIR}/{cfg.OUTPUT_FILE}", "w")
     f.write(HTMLHEAD + comics + HTMLFOOT)
