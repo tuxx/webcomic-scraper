@@ -112,6 +112,16 @@ class ComicCollection(object):
                 print("Failed.")
         return ENDRESULT
 
+    def get_one_comic(self, comic_title):
+        ENDRESULT=""
+        for comic in self.comics:
+            print(str(comic.title))
+            try:
+                ENDRESULT+=comic.fetch_comic()
+            except:
+                print("COMIC NOT WJORK")
+            return ENDRESULT
+
     def walk_package(self, package):
         imported_package = __import__(package, fromlist=['blah'])
 
